@@ -1,7 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
-import "express-async-errors";
 import { json } from "body-parser";
+import "express-async-errors";
 import mongoose from "mongoose";
+import cookieSession from "cookie-session";
 
 import { signupRouter } from "./routes/signup";
 import { signinRouter } from "./routes/singin";
@@ -12,7 +13,10 @@ import { NotFoundError } from "./errors/not-found-error";
 import { errorHandler } from "./middlewares/error-handler";
 
 const app = express();
+
+app.set("trust proxy", true);
 app.use(json());
+app.use(cookieSession({ signed: false, secure: true }));
 
 app.use(signupRouter);
 app.use(signinRouter);
@@ -29,6 +33,10 @@ app.use(async (err: Error, req: Request, res: Response, next: NextFunction) => {
 
 const start = async () => {
   try {
+    if (!process.env.JWT_KEY) {
+      throw new Error("Missing environment JWT_KEY");
+    }
+
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
     console.log("Connected to mongodb");
   } catch (err: any) {

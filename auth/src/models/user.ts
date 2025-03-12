@@ -15,7 +15,7 @@ interface IUserDoc extends Document {
   password: string;
 }
 
-const userSchema = new Schema({
+const userSchema = new Schema<IUserDoc, IUserModel>({
   email: {
     type: String,
     required: true,
