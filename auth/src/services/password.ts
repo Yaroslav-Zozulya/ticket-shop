@@ -13,7 +13,6 @@ export class Password {
 
   static async compare(storedPassword: string, suppliedPassword: string) {
     const [hashPassword, salt] = storedPassword.split(".");
-    console.log("salt");
     const buf = (await scryptAsync(suppliedPassword, salt, 64)) as Buffer;
 
     return buf.toString("hex") === hashPassword;
