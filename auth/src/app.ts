@@ -3,13 +3,13 @@ import { json } from "body-parser";
 import "express-async-errors";
 import cookieSession from "cookie-session";
 
+import { NotFoundError } from "@sn-777/common";
+import { errorHandler } from "@sn-777/common";
+
 import { signupRouter } from "./routes/signup";
 import { signinRouter } from "./routes/singin";
 import { signoutRouter } from "./routes/signout";
 import { currentUserRouter } from "./routes/current-user";
-
-import { NotFoundError } from "./errors/not-found-error";
-import { errorHandler } from "./middlewares/error-handler";
 
 const app = express();
 

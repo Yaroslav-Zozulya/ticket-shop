@@ -1,14 +1,12 @@
 import { Router, Request, Response } from "express";
 
-import { currentUser } from "../middlewares/current-user";
-import { requireAuth } from "../middlewares/require-auth";
+import { currentUser } from "@sn-777/common";
 
 const router = Router();
 
 router.get(
   "/api/users/current-user",
   currentUser,
-  requireAuth,
   async (req: Request, res: Response) => {
     res.send({ currentUser: req.currentUser || null });
   },
