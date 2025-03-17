@@ -7,6 +7,7 @@ const start = async () => {
     if (!process.env.JWT_KEY) {
       throw new Error("Missing environment JWT_KEY");
     }
+
     if (!process.env.MONGO_DB_URI) {
       throw new Error("Missing environment MONGO_DB_URI");
     }
@@ -18,7 +19,7 @@ const start = async () => {
   }
 
   app.listen(3000, () => {
-    console.log("Auth service listening on port 3000");
+    console.log("Tickets service listening on port 3000");
   });
 };
 
